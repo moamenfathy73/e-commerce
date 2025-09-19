@@ -33,7 +33,7 @@ if(products.length === 0){
 }
 async function removeItem ( id : string) {
 const data = await removeCartItem(id)
-   if (data.status === "success") {
+   if ( data && data.status === "success") {
       toast.success("removed successfuly",{position : "top-center" , duration : 700} );
     
 
@@ -47,7 +47,7 @@ const data = await removeCartItem(id)
 
 async function updateCartItem ( id : string , count : number) {
 const data = await updateCart(id , count)
-   if (data.status === "success") {
+   if ( data && data.status === "success") {
       toast.success("update successfuly",{position : "top-center" , duration : 700} );
     
 
@@ -83,7 +83,7 @@ const data = await updateCart(id , count)
 
         <div>  <Image src={product.product.imageCover} alt={product.product.title} width={150} height={150} /> </div>
 
-        <div className='my-3'> 
+        <div className='my-3'>
           <h1>{product.product.title}</h1>
           <p className='my-3 text-green-600'>Price : {product.price}</p>
           <Button onClick={()=> removeItem(product.product.id)} className='mx-2 cursor-pointer'>Remove</Button>
