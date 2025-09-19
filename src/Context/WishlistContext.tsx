@@ -4,13 +4,20 @@ import { AddToWishlist } from "@/WishlistAction/addToWishlist";
 import { getUserWishlistAction } from "@/WishlistAction/getUserWishlist";
 import { removeFromWishlistAction } from "@/WishlistAction/removeWishlist";
 
+// شكل الريسبونس اللي بيرجعه API
+interface WishlistResponse {
+  data: Product[];
+  wishlistId: string;
+  count: number;
+}
+
 interface WishlistContextType {
   isLoading: boolean;
   wishlist: Product[];
   numOfWishlistItems: number;
   wishlistId: string;
-  addToWishlist: (id: string) => Promise<any>;
-  removeFromWishlist: (id: string) => Promise<any>;
+  addToWishlist: (id: string) => Promise<WishlistResponse | undefined>;
+  removeFromWishlist: (id: string) => Promise<WishlistResponse | undefined>;
   isInWishlist: (id: string) => boolean;
   toggleWishlistItem: (id: string) => Promise<"added" | "removed">;
 }
@@ -23,19 +30,19 @@ const WishlistContextProvider = ({ children }: { children: ReactNode }) => {
   const [numOfWishlistItems, setNumOfWishlistItems] = useState(0);
   const [wishlistId, setWishlistId] = useState("");
 
-  async function addToWishlist(id: string) {
+  async function addToWishlist(id: string): Promise<WishlistResponse | undefined> {
     try {
-      const data = await AddToWishlist(id);
-      getUserWishlist();
+      const data: WishlistResponse = await AddToWishlist(id);
+      await getUserWishlist();
       return data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function removeFromWishlist(id: string) {
+  async function removeFromWishlist(id: string): Promise<WishlistResponse | undefined> {
     try {
-      const data = await removeFromWishlistAction(id);
+      const data: WishlistResponse = await removeFromWishlistAction(id);
       setWishlist(data.data);
       setWishlistId(data.wishlistId);
       setNumOfWishlistItems(data.count);
@@ -48,7 +55,7 @@ const WishlistContextProvider = ({ children }: { children: ReactNode }) => {
   async function getUserWishlist() {
     setIsLoading(true);
     try {
-      const data = await getUserWishlistAction();
+      const data: WishlistResponse = await getUserWishlistAction();
       setWishlist(data.data);
       setWishlistId(data.wishlistId);
       setNumOfWishlistItems(data.count);
@@ -59,7 +66,7 @@ const WishlistContextProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
-  async function toggleWishlistItem(id: string) {
+  async function toggleWishlistItem(id: string): Promise<"added" | "removed"> {
     if (isInWishlist(id)) {
       await removeFromWishlistAction(id);
       await getUserWishlist();
@@ -71,8 +78,8 @@ const WishlistContextProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
-  function isInWishlist(id: string) {
-    return wishlist.some(item => item._id === id);
+  function isInWishlist(id: string): boolean {
+    return wishlist.some((item) => item._id === id);
   }
 
   useEffect(() => {
@@ -89,7 +96,7 @@ const WishlistContextProvider = ({ children }: { children: ReactNode }) => {
         addToWishlist,
         removeFromWishlist,
         isInWishlist,
-        toggleWishlistItem
+        toggleWishlistItem,
       }}
     >
       {children}
@@ -98,3 +105,4 @@ const WishlistContextProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export default WishlistContextProvider;
+
