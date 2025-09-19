@@ -47,9 +47,14 @@ const ForgetPassword = () => {
       toast.success(data.status, { position: "top-center" });
       router.push("/resetCode");
     
-    }  catch (error) {
-  const err = error as any;
-  toast.error(err.response?.data?.message ?? "Something went wrong", { position: "top-center" });
+    } catch (error: unknown) {
+  if (axios.isAxiosError(error)) {
+    toast.error(error.response?.data?.message ?? "Something went wrong", {
+      position: "top-center",
+    });
+  } else {
+    toast.error("Unexpected error", { position: "top-center" });
+  }
   console.log(error);
 }
 
