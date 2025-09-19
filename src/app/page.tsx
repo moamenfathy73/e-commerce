@@ -2,7 +2,7 @@ import getAllProducts from "@/apis/allProducts";
 import HomeCArd from "./_components/HomeCard/HomeCArd";
 import MainSlider from "./_components/MainSlider/MainSlider";
 import CategorySlider from "./_components/CategorySlider/CategorySlider";
-import { product } from "@/types/product.type";
+import { Product } from "@/types/product.type";
 
 
 
@@ -19,7 +19,7 @@ export default async function  Home() {
     <MainSlider/>
     <CategorySlider/>
     <div className="flex flex-wrap ">
-   {data.map( (product:product , idx:number )=> <HomeCArd key={idx} product={product}/>   )}
+   {data.map( (product:Product , idx:number )=> <HomeCArd key={idx} product={product}/>   )}
 
     </div>
     

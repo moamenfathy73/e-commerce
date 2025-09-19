@@ -3,7 +3,7 @@
 import React, { useContext } from "react";
 import Loading from "@/app/loading";
 import { wishlistContext } from "@/Context/WishlistContext";
-import { Button } from "@/components/ui/button";
+
 import Image from "next/image";
 import Link from "next/link";
 import AddBtnCart from "@/app/_components/AddBtnCart/AddBtnCart";
@@ -14,11 +14,12 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { product } from "@/types/product.type";
+import { Product } from "@/types/product.type";
 
 const Wishlist = () => {
-  const { wishlist, isLoading,  isInWishlist } =
-    useContext(wishlistContext);
+const context = useContext(wishlistContext);
+if (!context) return null;
+const { wishlist, isLoading, isInWishlist } = context;
 
   // if (isLoading) {
   //   return <Loading />;
@@ -50,7 +51,7 @@ const Wishlist = () => {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {wishlist.map((product :product, index: number) => {
+        {wishlist.map((product :Product, index: number) => {
           const inWishlist = isInWishlist(product._id);
 
           return (

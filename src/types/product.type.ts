@@ -1,4 +1,4 @@
-export interface product {
+export interface Product {
   sold: number
   images: string[]
   subcategory: Subcategory[]

@@ -9,11 +9,11 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
-import { product } from "@/types/product.type";
+import { Product } from "@/types/product.type";
 import AddBtnCart from "../AddBtnCart/AddBtnCart";
 import { motion } from "framer-motion";
 
-const HomeCArd = ({ product }: { product: product }) => {
+const HomeCArd = ({ product }: { product: Product }) => {
   return (
     <motion.div
       className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-3"
