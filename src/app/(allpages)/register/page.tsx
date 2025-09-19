@@ -42,8 +42,12 @@ const Register = () => {
       console.log(data);
       toast.success(data.message, { position: "top-center" });
       router.push("/login");
-    } catch (error) {
-      toast.error(error.response.data.message, { position: "top-center" });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message ?? "Something went wrong", {
+          position: "top-center",
+        });
+      }
     }
   }
 

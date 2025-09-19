@@ -10,8 +10,15 @@ import { wishlistContext } from '@/Context/WishlistContext';
 const Navbar = () => {
   const { data: session, status } = useSession();
 
-  const { numOfCartItem } = useContext(cartContext);
-   const { numOfWishlistItems  } = useContext(wishlistContext);
+const cart = useContext(cartContext);
+const wishlist = useContext(wishlistContext);
+
+if (!cart || !wishlist) return null;
+
+const { numOfCartItem } = cart;
+const { numOfWishlistItems } = wishlist;
+
+
 
   return (
     <div className="bg-slate-100 py-5 fixed top-0 left-0 w-full z-50  shadow-md">

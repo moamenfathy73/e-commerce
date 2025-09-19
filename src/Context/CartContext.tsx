@@ -20,6 +20,7 @@ interface CartProduct {
 
 
 interface CartResponse {
+  message: string;
   status: string;
   numOfCartItems: number;
   data: {

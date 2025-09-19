@@ -6,14 +6,21 @@ import { toast } from "sonner";
 import { cartContext } from "@/Context/CartContext";
 import { wishlistContext } from "@/Context/WishlistContext";
 
+const AddBtnCart = ({ id }: { id: string }) => {
 
-
-const AddBtnCart = ({ id }) => {
-  const { addProductToCart } = useContext(cartContext);
-  const { toggleWishlistItem, isInWishlist } = useContext(wishlistContext);
+  const cart = useContext(cartContext);
+  const likes = useContext(wishlistContext);
 
   const [loadingCart, setLoadingCart] = useState(false);
   const [loadingWishlist, setLoadingWishlist] = useState(false);
+
+  if (!cart || !likes) return null;
+
+  const { addProductToCart } = cart;
+  const { toggleWishlistItem, isInWishlist } = likes;
+
+
+
 
   async function handleAddToCart() {
     if (loadingCart) return;
@@ -21,15 +28,17 @@ const AddBtnCart = ({ id }) => {
 
     try {
       const data = await addProductToCart(id);
+      
 
       if (data?.status === "success") {
         toast.success(data.message, { position: "top-center", duration: 1000 });
-        setLoadingCart(false);
       } else {
         toast.error("There was an error adding the item to the cart.");
       }
-    } catch (error) {
+    } catch (error ) {
       toast.error("Something went wrong while adding to cart.");
+    } finally {
+      setLoadingCart(false);
     }
   }
 
@@ -45,24 +54,23 @@ const AddBtnCart = ({ id }) => {
           position: "top-center",
           duration: 1000,
         });
-         setLoadingWishlist(false);
       } else {
         toast.error("Removed from wishlist 💔", {
           position: "top-center",
           duration: 1000,
         });
-         setLoadingWishlist(false);
       }
     } catch (error) {
       toast.error("Something went wrong while updating wishlist.");
-    } 
+    } finally {
+      setLoadingWishlist(false);
+    }
   }
 
   const inWishlist = isInWishlist(id);
 
   return (
     <div className="flex items-center mt-2 gap-1">
-     
       <Button
         onClick={handleAddToCart}
         disabled={loadingCart}

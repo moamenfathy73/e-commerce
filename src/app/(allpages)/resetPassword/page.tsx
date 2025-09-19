@@ -46,9 +46,14 @@ const ResetPassword = () => {
       console.log(data);
       toast.success(data.token, { position: "top-center" });
       router.push("/");
-    } catch (error) {
-      toast.error(error.response.data.message, { position: "top-center" });
-    console.log(error);
+    } catch (error:unknown) {
+      if (axios.isAxiosError(error)){
+        toast.error(error.response?.data?.message ?? "Something went wrong", {
+          position: "top-center",
+        });
+
+      }
+        console.log(error);
     }
      setBtnLoading(true )
   }
