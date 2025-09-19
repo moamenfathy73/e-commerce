@@ -10,7 +10,13 @@ import Link from 'next/link';
 
 const  Cart = () => {
 
-const {isLoading , products , totalCartPrrise , removeCartItem , updateCart , clearCart} = useContext(cartContext)
+  const contex = useContext(cartContext)
+
+  if (!contex) {
+    return <div>Loading...</div>;
+  }
+
+const {isLoading , products , totalCartPrrise , removeCartItem , updateCart , clearCart} = contex
 
 if(isLoading){
   return <Loading />
