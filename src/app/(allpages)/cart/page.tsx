@@ -81,7 +81,7 @@ const data = await updateCart(id , count)
 
       <div className='flex items-center gap-5'>
 
-        <div>  <Image src={product.product.imageCover} alt={product.product.title} width={150} height={150} /> </div>
+        <div>  <Image src={product?.product?.imageCover ?? "/placeholder.png"} alt={product.product.title} width={150} height={150} /> </div>
 
         <div className='my-3'>
           <h1>{product.product.title}</h1>

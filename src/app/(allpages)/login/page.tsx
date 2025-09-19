@@ -14,15 +14,14 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { loginSchema, LoginSchemaType } from "@/schema/login.Schema";
 import  Link  from 'next/link';
 import { signIn } from "next-auth/react"; 
 
 const Login = () => {
-  const router = useRouter();
+  // const router = useRouter();
   
   const form = useForm<LoginSchemaType>({
     defaultValues: {

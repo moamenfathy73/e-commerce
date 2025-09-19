@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useContext } from "react";
-import Loading from "@/app/loading";
 import { wishlistContext } from "@/Context/WishlistContext";
 
 import Image from "next/image";
@@ -19,11 +18,8 @@ import { Product } from "@/types/product.type";
 const Wishlist = () => {
 const context = useContext(wishlistContext);
 if (!context) return null;
-const { wishlist, isLoading, isInWishlist } = context;
+const { wishlist, isInWishlist } = context;
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
 
   if (!wishlist || wishlist.length === 0) {
     return (
