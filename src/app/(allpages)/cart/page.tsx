@@ -25,7 +25,7 @@ if(isLoading){
 if(products.length === 0){
 
 
-  return   <div className='flex justify-center items-center h-screen'>
+  return   <div className='flex justify-center items-center h-screen mt-[200] md:mt-0'>
 
       <h1 className='text-red-500 text-3xl font-bold '>No data to display </h1>
         

@@ -23,7 +23,7 @@ const { wishlist, isInWishlist } = context;
 
   if (!wishlist || wishlist.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen gap-6 text-center ">
+      <div className="flex flex-col items-center justify-center h-screen gap-6 text-center mt-[200px] md:mt-0 ">
         <h1 className="text-4xl font-bold text-red-500">
           💔 Your Wishlist is Empty!
         </h1>

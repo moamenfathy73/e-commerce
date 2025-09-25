@@ -12,6 +12,7 @@ import { jwtDecode } from 'jwt-decode';
   const token = await getToken()
 
 
+
  const {id}:{id:string} = jwtDecode(token as string)
   
 

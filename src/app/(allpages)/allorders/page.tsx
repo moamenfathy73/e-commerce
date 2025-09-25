@@ -8,6 +8,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 const AllOrders = async () => {
   const data: orders = await getUserOrder();
+  
 
   return (
     <div className="md:w-[80%] mx-auto pt-[400px] md:pt-20 my-10 px-5 md:px-0">
